@@ -1,0 +1,22 @@
+<script src="/__/firebase/7.14.4/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.4/firebase-analytics.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+<!--<h1 *ngIf="authService.user | async">Welcome {{ (authService.user | async)?.email }}!</h1>-->
+<div class="wrapper fadeInDown">
+  <div id="formContent" class="formContent">
+    <div *ngIf="!(authService.user | async)">
+    <!-- Tabs Titles -->
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../assets/images/app_logo.png" id="icon" alt="User Icon"  />
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input type="text"  class="fadeIn second" [(ngModel)]="email" placeholder="Email" [ngModelOptions]="{standalone: true}">
+      <input type="password" class="fadeIn third" [(ngModel)]="password" placeholder="Password" [ngModelOptions]="{standalone: true}">
+      <input type="submit" class="fadeIn fourth" value="Log In" (click)="login()" [disabled]="!email || !password" >
+    </form>
+  </div>
+</div>

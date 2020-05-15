@@ -2,10 +2,22 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+/* sadhanam which was already there in
 export const environment = {
   production: false
 };
-
+*/
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBdQ9vTXGMws9gtoSPMBaPNbQqe64ln_cg',
+    authDomain: 'YOUR_AUTH_DOMAIN',
+    databaseURL: 'YOUR_DATABASE_URL',
+    projectId: 'YOUR_PROJECT_ID',
+    storageBucket: 'YOUR_STORAGE_BUCKET',
+    messagingSenderId: 'YOUR_SENDER_ID'
+  }
+};
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

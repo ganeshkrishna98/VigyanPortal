@@ -1,0 +1,39 @@
+<app-topbar></app-topbar>
+<body>
+
+  <br>
+  <br>
+  <br>
+
+
+<h2 style="text-align:center"> Dashboard</h2>
+
+<p style="text-align: center">Select what to upload</p>
+<div class="content" role="main">
+  <div class="card-container">
+   <a class="card" [routerLink]="['/noteup']" >
+
+     <span>Notes</span>
+
+       </a>
+    <a class="card"  [routerLink]="['/questionpaperup']">
+
+      <span>Question Paper</span>
+
+     </a>
+
+   <a class="card"  [routerLink]="['/videoup']">
+
+      <span>Videos</span>
+
+     </a>
+
+     <a class="card" [routerLink]="['/noticeup']">
+
+     <span>Notice</span>
+
+     </a>
+
+  </div>
+</div>
+</body>
