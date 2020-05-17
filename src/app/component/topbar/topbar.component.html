@@ -2,10 +2,12 @@
 <script src="/__/firebase/7.14.4/firebase-analytics.js"></script>
 <script src="/__/firebase/init.js"></script>
 
-<div class="navbar" >
+<div class="navbar fadeInDown" >
   <a [routerLink]="['../dashboard']"> Vigyan</a>
     <div class="spacer"></div>
   <div>
+
+<!--<h1 *ngIf="authService.user | async">Welcome {{ (authService.user | async)?.email }}!</h1>-->
   <a (click)="logout()">Log Out</a>
   </div>
 </div>

@@ -17,6 +17,7 @@ export class LoginComponent {
 
   constructor(public authService: AuthService, private router: Router) {}
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(){
     if (this.password === undefined && this.email === undefined) {
       this.logout();

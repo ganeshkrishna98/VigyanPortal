@@ -1,5 +1,5 @@
 html {
-  background-color: #56baed;
+  background-color: #b3e5fc
 }
 
 body {
@@ -16,12 +16,12 @@ a {
 
 h2 {
   text-align: center;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 702;
   text-transform: uppercase;
   display:inline-block;
   margin: 40px 8px 10px 8px;
-  color: #cccccc;
+  color: #424242
 }
 
 
@@ -79,7 +79,7 @@ h2.active {
 /* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset]  {
-  background-color: #56baed;
+  background-color: #1976d2;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -101,7 +101,7 @@ input[type=button], input[type=submit], input[type=reset]  {
 }
 
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-  background-color: #39ace7;
+  background-color: #125699;
 }
 
 input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
@@ -297,5 +297,6 @@ form input[type=text], form input[type=password], form input[type=submit]{
 }
 
 .wrapper .formContent{
-  margin-top:7.5%;
+  margin-top:2%;
 }
+

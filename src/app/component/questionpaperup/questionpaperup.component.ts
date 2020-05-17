@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionpaperupComponent implements OnInit {
 
-  fileUploaded:any;
+  fileUploaded: any;
 
   constructor(private authService: AuthService) {}
 
@@ -31,6 +31,6 @@ export class QuestionpaperupComponent implements OnInit {
       err => {
         console.log(err);
       }
-    )
+    );
   }
 }

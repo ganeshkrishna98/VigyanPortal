@@ -24,7 +24,7 @@ p {
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;
+  height: 50px;
   display: flex;
   align-items: center;
   background-color: #1976d2;
@@ -41,3 +41,33 @@ p {
   cursor: pointer;
 }
 
+a {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #424242;
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fadeIn {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}
