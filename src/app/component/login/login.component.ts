@@ -26,7 +26,6 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.email, this.password).then(value => {
-      console.log('Nice, it worked!');
       this.router.navigate(['/dashboard']);
     })
     .catch(err => {

@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,20 +13,25 @@ import { VideoupComponent } from './component/videoup/videoup.component';
 import { NoticeupComponent } from './component/noticeup/noticeup.component';
 import { LoginComponent } from './component/login/login.component';
 
-
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
-import {AuthService} from './component/auth/auth.service';
+import { AuthService } from './component/auth/auth.service';
+import {enableProdMode} from '@angular/core';
 
-const appRoutes: Routes = [{path: 'dashboard', component: DashboardComponent},
-{path: 'noteup', component: NoteupComponent},
-{path: 'questionpaperup', component: QuestionpaperupComponent},
-{path: 'videoup', component: VideoupComponent},
-{path: 'noticeup', component: NoticeupComponent},
-{path: '', component: LoginComponent}]
-;
+if (environment.production) {
+  enableProdMode();
+}
+
+const appRoutes: Routes = [
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'noteup', component: NoteupComponent },
+  { path: 'questionpaperup', component: QuestionpaperupComponent },
+  { path: 'videoup', component: VideoupComponent },
+  { path: 'noticeup', component: NoticeupComponent },
+  { path: '', component: LoginComponent },
+];
 
 @NgModule({
   declarations: [
@@ -37,7 +42,7 @@ const appRoutes: Routes = [{path: 'dashboard', component: DashboardComponent},
     QuestionpaperupComponent,
     VideoupComponent,
     NoticeupComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,10 +51,9 @@ const appRoutes: Routes = [{path: 'dashboard', component: DashboardComponent},
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
