@@ -318,8 +318,3 @@ label{
 form input[type=submit]{
     margin-bottom: 5%;
 }
-
-label.fadeIn.fifth
-{
-  cursor: pointer;
-}

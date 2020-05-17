@@ -3,9 +3,8 @@
 <script src="/__/firebase/init.js"></script>
 
 <div class="wrapper fadeInDown">
-  <h2 >Login</h2>
+  <h2 >Reset Password</h2>
   <div id="formContent" class="formContent">
-    <div *ngIf="!(authService.user | async)">
     <!-- Tabs Titles -->
     <!-- Icon -->
     <div class="fadeIn first">
@@ -13,14 +12,12 @@
     </div>
 
     <!-- Login Form -->
-    <form>
+   <form>
+     <label>Enter your email id to reset password</label>
       <input type="text"  class="fadeIn second" [(ngModel)]="email" placeholder="Email" [ngModelOptions]="{standalone: true}">
-      <input type="password" class="fadeIn third" [(ngModel)]="password" placeholder="Password" [ngModelOptions]="{standalone: true}">
-       <label class="error">{{errorMessage}}</label>
+       <label class="error">{{Message}}</label>
        <br>
-       <label class="fadeIn fifth" [routerLink]="['/forgotpasswd']">Forgot Password</label>
-       <br>
-      <input type="submit" class="fadeIn fourth" value="Log In" (click)="login()" [disabled]="!email || !password" >
+      <input type="submit" class="fadeIn fourth" value="Reset Password" (click)="reset()" [disabled]="!email" >
     </form>
   </div>
 </div>

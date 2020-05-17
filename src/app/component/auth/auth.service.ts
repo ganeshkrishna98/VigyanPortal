@@ -24,6 +24,13 @@ export class AuthService {
     this.firebaseAuth.signOut();
   }
 
+  forgotpassword(email: string) {
+    return  this.firebaseAuth.sendPasswordResetEmail(email);
+  }
+
+
+
+
   getCredentials() {
     return this.http.get('../../../assets/credentials.json');
   }

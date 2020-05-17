@@ -17,7 +17,7 @@ export class LoginComponent {
 
   constructor(public authService: AuthService, private router: Router) {}
 
-  // tslint:disable-next-line: use-lifecycle-interface
+  
   ngOnInit(){
     if (this.password === undefined && this.email === undefined) {
       this.logout();
@@ -25,6 +25,7 @@ export class LoginComponent {
   }
 
   login() {
+    if (this.validateEmail(this.email)){
     this.authService.login(this.email, this.password).then(value => {
       this.router.navigate(['/dashboard']);
     })
@@ -32,9 +33,16 @@ export class LoginComponent {
       this.errorMessage = 'The password is incorrect or the user does not exist';
     });
     this.email = this.password = '';
+    }else{ this.errorMessage = 'Please enter a valid email address'}
   }
 
   logout() {
     this.authService.logout();
   }
+
+  validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
 }

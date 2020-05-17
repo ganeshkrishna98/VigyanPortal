@@ -19,6 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './component/auth/auth.service';
 import {enableProdMode} from '@angular/core';
+import { ForgotpasswdComponent } from './component/forgotpasswd/forgotpasswd.component';
 
 if (environment.production) {
   enableProdMode();
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'videoup', component: VideoupComponent },
   { path: 'noticeup', component: NoticeupComponent },
   { path: '', component: LoginComponent },
+  { path: 'forgotpasswd', component: ForgotpasswdComponent}
 ];
 
 @NgModule({
@@ -43,6 +45,7 @@ const appRoutes: Routes = [
     VideoupComponent,
     NoticeupComponent,
     LoginComponent,
+    ForgotpasswdComponent,
   ],
   imports: [
     BrowserModule,
