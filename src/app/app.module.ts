@@ -14,9 +14,9 @@ import { NoticeupComponent } from './component/noticeup/noticeup.component';
 import { LoginComponent } from './component/login/login.component';
 
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 import {AuthService} from './component/auth/auth.service';
 
