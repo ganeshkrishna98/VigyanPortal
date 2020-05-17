@@ -35,7 +35,7 @@ h2 {
   justify-content: center;
   width: 100%;
   min-height: 100%;
-  padding: 20px;
+  padding: 1px;
 }
 
 #formContent {
@@ -300,3 +300,11 @@ form input[type=text], form input[type=password], form input[type=submit]{
   margin-top:2%;
 }
 
+label{
+  text-align: center;
+  font-size: 12px;
+  font-weight: 702;
+  text-transform: uppercase;
+  display:inline-block;
+  color: #424242
+}

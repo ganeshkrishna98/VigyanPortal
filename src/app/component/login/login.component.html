@@ -16,6 +16,7 @@
     <form>
       <input type="text"  class="fadeIn second" [(ngModel)]="email" placeholder="Email" [ngModelOptions]="{standalone: true}">
       <input type="password" class="fadeIn third" [(ngModel)]="password" placeholder="Password" [ngModelOptions]="{standalone: true}">
+       <label class="error">{{errorMessage}}</label>
       <input type="submit" class="fadeIn fourth" value="Log In" (click)="login()" [disabled]="!email || !password" >
     </form>
   </div>

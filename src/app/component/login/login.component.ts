@@ -12,7 +12,7 @@ export class LoginComponent {
   title = 'Login to VigyanPortal';
   email: string;
   password: string;
-
+  errorMessage: string
   subscription: Subscription;
 
   constructor(public authService: AuthService, private router: Router) {}
@@ -29,7 +29,7 @@ export class LoginComponent {
       this.router.navigate(['/dashboard']);
     })
     .catch(err => {
-      console.log('Something went wrong:', err.message);
+      this.errorMessage = 'The password is incorrect or the user does not exist';
     });
     this.email = this.password = '';
   }
