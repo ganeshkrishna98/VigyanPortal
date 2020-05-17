@@ -12,7 +12,7 @@ export class LoginComponent {
   title = 'Login to VigyanPortal';
   email: string;
   password: string;
-  errorMessage: string
+  errorMessage: string;
   subscription: Subscription;
 
   constructor(public authService: AuthService, private router: Router) {}
