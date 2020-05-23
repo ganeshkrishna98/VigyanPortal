@@ -39,11 +39,10 @@ export class LoginComponent {
           if (this.m1 === this.err1) {
             this.errorMessage = 'User does not exist Contact Administrator';
           }
-
-          this.email = this.password = '';
           if (this.m1 === this.err2) {
             this.errorMessage = ' Password is incorrect';
           }
+          this.email = this.password = '';
         });
     } else {
       this.errorMessage = 'Please enter a valid email address';
