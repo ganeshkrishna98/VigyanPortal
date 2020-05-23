@@ -28,7 +28,10 @@ export class AuthService {
     return  this.firebaseAuth.sendPasswordResetEmail(email);
   }
 
-
+  // currentuser()
+  // {
+    // return this.firebaseAuth.currentUser;
+  // }
 
 
   getCredentials() {

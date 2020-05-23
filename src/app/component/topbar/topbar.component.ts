@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class TopbarComponent implements OnInit {
 
+  uname: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -19,4 +20,11 @@ export class TopbarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate([''])
   }
+
+  // username(){
+  //  this.authService.currentuser().then(res =>{
+    //  this.uname=
+  //  })
+
+  //  }
 }

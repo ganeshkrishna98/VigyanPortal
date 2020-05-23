@@ -34,7 +34,7 @@ export class ForgotpasswdComponent implements OnInit {
       }
       else {this.m1 = err.message;
             if (this.m1 === this.err2){
-        this.Message = 'User does not exist';
+        this.Message = 'User does not exist Contact Administrator';
         }
       }
     });
