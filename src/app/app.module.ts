@@ -1,7 +1,10 @@
+import { FileSession } from './../infrastructures/sessions/file.session';
+import { UploadService } from './component/upload/upload.service';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { GapiSession } from '../infrastructures/sessions/gapi.session';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +23,10 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './component/auth/auth.service';
 import {enableProdMode} from '@angular/core';
 import { ForgotpasswdComponent } from './component/forgotpasswd/forgotpasswd.component';
+import { AppRepository } from 'src/infrastructures/repositories/app.repository';
+import { FileRepository } from 'src/infrastructures/repositories/file.repository';
+import { UserRepository } from 'src/infrastructures/repositories/user.repository';
+import { AppContext } from 'src/infrastructures/app.context';
 
 if (environment.production) {
   enableProdMode();
@@ -34,6 +41,10 @@ const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'forgotpasswd', component: ForgotpasswdComponent}
 ];
+
+export function initGapi(gapiSession: GapiSession) {
+  return () => gapiSession.initClient();
+}
 
 @NgModule({
   declarations: [
@@ -56,7 +67,21 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, UploadService,
+    {
+      provide: APP_INITIALIZER,
+      deps: [GapiSession],
+      useFactory: initGapi,
+      multi: true
+    },
+    FileSession,
+    GapiSession,
+    AppRepository,
+    FileRepository,
+    UserRepository,
+    AppContext,
+  ],
+  // providers: [AuthService, UploadService, APP_INITIALIZER, useFactory: {initGapi}, deps: [GapiSession], multitrue],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

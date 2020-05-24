@@ -6,27 +6,21 @@
         <div class="container" style="text-align: center;" >
           <p >
             <label class="fadeIn first" style="margin-left: 50%;">Select Semester</label>
-            <select id = "Semester List" class="fadeIn first">
-              <option value = "1">S1&2</option>
-              <option value = "2">S3</option>
-              <option value = "3">S4</option>
-              <option value = "4">S5</option>
-              <option value = "5">S6</option>
-              <option value = "6">S7</option>
-              <option value = "7">S8</option>
+
+            <select id="Semester List" class="fadeIn first" (change)="getBranches($event)" [(ngModel)]="selectedSemester" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let item of files" [ngValue]="item">{{item.Name}}</option>
             </select>
          </p>
          <p>
            <label class="fadeIn second" style="margin-left: 50%;">Select Branch</label>
            <br>
-           <select id = "Branch List" class="fadeIn second">
+           <!-- <ng-container (click)="getBranches($event)"> -->
+           <select id = "Branch List" class="fadeIn second" >
              <option value = "1">CS</option>
-             <option value = "2">EC</option>
-             <option value = "3">EE</option>
-             <option value = "4">ME</option>
            </select>
+           <!-- </ng-container> -->
         </p>
-        <p>
+        <!-- <p>
          <label class="fadeIn third" style="margin-left: 50%;">Select Subject</label>
          <br>
          <select id = "Subject List" class="fadeIn third">
@@ -38,7 +32,7 @@
            <option value = "6">S7</option>
            <option value = "7">S8</option>
          </select>
-         </p>
+         </p> -->
       </div>
       <div class="content" style="margin-left: 30%;">
         <!-- <a class="card fadeIn fourth" >-->
