@@ -9,14 +9,21 @@ import { Subject, Observable } from 'rxjs';
 })
 export class UploadService {
 
-  // public rootParams = new Subject<any>();
-  // public sendDataOnRoot$ = this.rootParams.asObservable();
+  public loaderData = new Subject<any>();
+  public sendLoaderData$ = this.loaderData.asObservable();
+  public popoverData = new Subject<any>();
+  public sendPopoverData$ = this.popoverData.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  // sendDataOnRoot(data: any){
-  //   this.rootParams.next({data});
-  // }
+  sendLoaderData(data: any){
+    this.loaderData.next(data);
+  }
+
+  sendPopoverData(data: any){
+    ;
+    this.popoverData.next(data);
+  }
 
   getFiles(folderId: string) {
     return gapi.client.drive.files

@@ -368,21 +368,25 @@ form {
   margin-top: 2%;
 }
 
-.loader-backdrop {
-  position: fixed;
-  top: 0;
-  background-color: rgb(0, 0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-  width: 100%;
-  padding: 10% 50% 10% 50%;
-  display:none;
+input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input::before {
+    content: 'Select some files';
+    display: inline-block;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 10px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    color: white!important;
+    height: 50px;
+    margin: 8px 0;
+    transform: translate(-17px, -25px);
+    width: inherit;
+    background-color: #1976d2;
+    text-align: center;
 }
 
-.loader-content {
-  width: fit-content;
-  background: #fff;
-  position: absolute;
-  border-radius: 4px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-}

@@ -27,6 +27,9 @@ import { FileRepository } from 'src/infrastructures/repositories/file.repository
 import { UserRepository } from 'src/infrastructures/repositories/user.repository';
 import { AppContext } from 'src/infrastructures/app.context';
 import { AppSession } from 'src/infrastructures/sessions/app.session';
+import { LoaderComponent } from './component/common/loader/loader.component';
+import { PopoverComponent } from './component/common/popover/popover.component';
+import { SortByNamePipe } from './component/common/sort-by-name.pipe';
 
 if (environment.production) {
   enableProdMode();
@@ -55,6 +58,9 @@ export function initGapi(gapiSession: GapiSession) {
     VideoupComponent,
     LoginComponent,
     ForgotpasswdComponent,
+    LoaderComponent,
+    PopoverComponent,
+    SortByNamePipe,
   ],
   imports: [
     BrowserModule,

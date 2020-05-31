@@ -13,20 +13,22 @@ import { Subscription } from 'rxjs';
 export class QuestionpaperupComponent implements OnInit {
   selectedSemester = '';
   selectedBranch = '';
-  selectedSubject = '';
-  selectedElectives = '';
+  // selectedSubject = '';
+  // selectedElectives = '';
   folderLocation = '';
   noteRoot = [];
   // tslint:disable-next-line: ban-types
   dropdownLists = {
     semesters: [],
     branches: [],
-    subjects: [],
-    electives: []
+    // subjects: [],
+    // electives: [],
   };
   fileToUpload: File;
   // tslint:disable-next-line: ban-types
   isDisabled: Boolean = false;
+  // tslint:disable-next-line: ban-types
+  showLoader: Boolean = false;
   subscription: Subscription;
 
   // tslint:disable-next-line: no-shadowed-variable
@@ -43,7 +45,7 @@ export class QuestionpaperupComponent implements OnInit {
         take(1),
         map(() => {
           if (window.history.state.itemData === undefined) {
-            this.router.navigate(['../'], {
+            this.router.navigate(['./dashboard'], {
               relativeTo: this.activatedRoute.parent,
             });
           } else {
@@ -59,16 +61,12 @@ export class QuestionpaperupComponent implements OnInit {
     this.uploadService.getFiles(data.Id).then((response) => {
       this.zone.run(() => {
         if (this.dropdownLists.semesters.length === 0) {
-          this.dropdownLists.semesters = response;
+          this.dropdownLists.semesters = response.sort((current, next) => current.Name.localeCompare(next.Name));
         } else if (
           this.dropdownLists.branches.length === 0 &&
           this.isDisabled !== true
         ) {
-          this.dropdownLists.branches = response;
-        } else if (this.dropdownLists.subjects.length === 0) {
-          this.dropdownLists.subjects = response;
-        }else if (this.dropdownLists.electives.length === 0){
-          this.dropdownLists.electives = response;
+          this.dropdownLists.branches = response.sort((current, next) => current.Name.localeCompare(next.Name));
         }
       });
     });
@@ -83,24 +81,32 @@ export class QuestionpaperupComponent implements OnInit {
   }
 
   uploadFile() {
-    if (this.folderLocation){
-      this.uploadService.fileupload(this.fileToUpload, this.folderLocation).then(
-        res => { alert(res.result.name + ' got uploaded successfully!'); },
-        err => { alert('Upload failed!'); }
-      );
+    this.uploadService.sendLoaderData('show');
+    if (this.folderLocation) {
+      this.uploadService
+        .fileupload(this.fileToUpload, this.folderLocation)
+        .then(
+          (res) => {
+            this.uploadService.sendLoaderData('hide');
+            this.uploadService.sendPopoverData(res.result.name);
+          },
+          (err) => {
+            this.showLoader = false;
+            alert('Upload failed!');
+          }
+        );
     }
   }
 
   onSemesterChange() {
-    this.isDisabled = this.selectedSemester === 'S1 and S2' ? true : this.selectedSemester === 'S3 and S4 common' ? true : false;
-    if (this.selectedBranch !== '' || this.selectedSubject !== ''){
-        this.dropdownLists.branches = [];
-        this.dropdownLists.subjects = [];
-        this.dropdownLists.electives = [];
-        this.selectedSubject = '';
-        this.selectedBranch = '';
-        this.selectedElectives = '';
-      }
+    this.isDisabled =
+      this.selectedSemester === 'S1 &S2'
+        ? true
+        : false;
+    if (this.selectedBranch !== '') {
+      this.dropdownLists.branches = [];
+      this.selectedBranch = '';
+    }
     const itemData = this.dropdownLists.semesters.find(
       (element) => element.Name === this.selectedSemester
     );
@@ -108,34 +114,11 @@ export class QuestionpaperupComponent implements OnInit {
   }
 
   onBranchChange() {
-    if (this.selectedSubject !== '' || this.selectedElectives !== ''){
-      this.dropdownLists.subjects = [];
-      this.dropdownLists.electives = [];
-      this.selectedSubject = '';
-      this.selectedElectives = '';
-    }
     const itemData = this.dropdownLists.branches.find(
       (element) => element.Name === this.selectedBranch
     );
-    this.getList(itemData);
-  }
-
-  onSubjectChange() {
-    if (this.selectedElectives !== ''){
-      this.dropdownLists.electives = [],
-      this.selectedElectives = '';
-    }
-    const itemData = this.dropdownLists.subjects.find(
-      (element) => element.Name === this.selectedSubject
-    );
-    this.folderLocation = itemData.Name === 'Electives'? '' : itemData.Id;
-    this.getList(itemData);
-  }
-
-  onElectivesChange(){
-    const itemData = this.dropdownLists.electives.find(
-      (element) => element.Name === this.selectedElectives
-    );
+    // this.getList(itemData);
     this.folderLocation = itemData.Id;
   }
+
 }

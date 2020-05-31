@@ -32,10 +32,10 @@
            </select>
          </p>
       </div>
-      <div class="content" style="margin-left: 30%;">
+      <div class="content" style="margin-left: 40%;">
         <!-- <a class="card fadeIn fourth" >-->
-          <input type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="video/mp4" />
-          <!--<span>Choose File to Upload</span>-->
+          <input  type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="video/*" />
+          <span>{{fileToUpload && fileToUpload.name ? fileToUpload.name : fileToUpload}}</span>
       <!--  </a>-->
       <!-- <a class="card fadeIn fifth" >-->
         <a class="card " (click)="uploadFile()">
@@ -47,8 +47,5 @@
   </div>
 </body>
 <app-topbar></app-topbar>
-<div class="loader-backdrop fadeIn" [ngStyle]="{'display' : showLoader ? 'block' : 'none'}">
-  <div class="loader-content">
-<img src="../../../assets/images/loader.gif" alt="animation">
-</div>
-</div>
+<app-loader></app-loader>
+<app-popover></app-popover>

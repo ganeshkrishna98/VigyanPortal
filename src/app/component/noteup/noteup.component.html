@@ -32,10 +32,10 @@
            </select>
          </p>
       </div>
-      <div class="content" style="margin-left: 30%;">
+      <div class="content" style="margin-left: 40%;">
         <!-- <a class="card fadeIn fourth" >-->
-          <input type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="text/*" />
-          <!--<span>Choose File to Upload</span>-->
+          <input  type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="text/*" />
+          <span>{{fileToUpload && fileToUpload.name ? fileToUpload.name : fileToUpload}}</span>
       <!--  </a>-->
       <!-- <a class="card fadeIn fifth" >-->
         <a class="card " (click)="uploadFile()">
@@ -47,3 +47,5 @@
   </div>
 </body>
 <app-topbar></app-topbar>
+<app-loader></app-loader>
+<app-popover></app-popover>
