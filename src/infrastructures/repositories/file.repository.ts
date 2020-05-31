@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FileInfo, MIME_TYPE_FOLDER } from '../../app/modals/fileInfo';
-declare var UploaderForGoogleDrive;
+// import * as UploaderForGoogleDrive from '../../assets/js/UploaderForGoogleDrive.js';
+import '../../assets/js/googleuploader.js';
+declare const UploaderForGoogleDrive: any;
 
 @Injectable()
 export class FileRepository {
@@ -10,7 +12,7 @@ export class FileRepository {
       name: folderName,
       mimeType: MIME_TYPE_FOLDER,
       parents: [parentId],
-    };
+    }
     return gapi.client.drive.files
       .create({
         resource: folder,
@@ -65,13 +67,7 @@ export class FileRepository {
     return Promise.all(promises);
   }
 
-  importFile(
-    parentId: string,
-    file: FileInfo,
-    onError: any,
-    onComplete: any,
-    onProgress: any
-  ) {
+  importFile(parentId: string, file: FileInfo, onError: any, onComplete: any, onProgress: any) {
     const contentType = file.Blob.type || 'application/octet-stream';
     const metadata = {
       name: file.Blob.name,

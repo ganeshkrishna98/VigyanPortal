@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { AppSession } from './sessions/app.session';
+import { AppSession } from './sessions/app.session';
 import { AppRepository } from './repositories/app.repository';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class AppContext {
 
     constructor(
         private appRepository: AppRepository,
-        // private appSession: AppSession
+        private appSession: AppSession
     ) {
 
     }
@@ -16,7 +16,7 @@ export class AppContext {
         return this.appRepository;
     }
 
-    // get Session(): AppSession {
-    //     return this.appSession;
-    // }
+    get Session(): AppSession {
+        return this.appSession;
+    }
 }

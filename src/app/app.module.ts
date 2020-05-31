@@ -13,7 +13,6 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NoteupComponent } from './component/noteup/noteup.component';
 import { QuestionpaperupComponent } from './component/questionpaperup/questionpaperup.component';
 import { VideoupComponent } from './component/videoup/videoup.component';
-import { NoticeupComponent } from './component/noticeup/noticeup.component';
 import { LoginComponent } from './component/login/login.component';
 
 import { AngularFireModule } from '@angular/fire';
@@ -27,6 +26,7 @@ import { AppRepository } from 'src/infrastructures/repositories/app.repository';
 import { FileRepository } from 'src/infrastructures/repositories/file.repository';
 import { UserRepository } from 'src/infrastructures/repositories/user.repository';
 import { AppContext } from 'src/infrastructures/app.context';
+import { AppSession } from 'src/infrastructures/sessions/app.session';
 
 if (environment.production) {
   enableProdMode();
@@ -37,7 +37,6 @@ const appRoutes: Routes = [
   { path: 'noteup', component: NoteupComponent },
   { path: 'questionpaperup', component: QuestionpaperupComponent },
   { path: 'videoup', component: VideoupComponent },
-  { path: 'noticeup', component: NoticeupComponent },
   { path: '', component: LoginComponent },
   { path: 'forgotpasswd', component: ForgotpasswdComponent}
 ];
@@ -54,7 +53,6 @@ export function initGapi(gapiSession: GapiSession) {
     NoteupComponent,
     QuestionpaperupComponent,
     VideoupComponent,
-    NoticeupComponent,
     LoginComponent,
     ForgotpasswdComponent,
   ],
@@ -67,21 +65,21 @@ export function initGapi(gapiSession: GapiSession) {
     FormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService, UploadService,
-    {
-      provide: APP_INITIALIZER,
-      deps: [GapiSession],
-      useFactory: initGapi,
-      multi: true
-    },
+  providers: [
+    { provide: APP_INITIALIZER, useFactory: initGapi, deps: [GapiSession], multi: true },
+    AppContext,
+
+    AppSession,
     FileSession,
     GapiSession,
+
     AppRepository,
     FileRepository,
     UserRepository,
-    AppContext,
+    AuthService,
+    UploadService,
+
   ],
-  // providers: [AuthService, UploadService, APP_INITIALIZER, useFactory: {initGapi}, deps: [GapiSession], multitrue],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

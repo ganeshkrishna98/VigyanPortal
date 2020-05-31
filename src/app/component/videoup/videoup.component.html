@@ -1,50 +1,44 @@
 <body>
   <div class="wrapper fadeInDown">
-   <h2 style="text-align: center;">Upload Videos</h2>
+   <h2 style="text-align: center;">Upload Lecture Videos</h2>
     <div id="formContent" class="formContent">
       <form>
         <div class="container" style="text-align: center;" >
           <p >
-            <label class="fadeIn first" style="margin-left: 50%;">Select Semester</label>
-            <select id = "Semester List" class="fadeIn first">
-              <option value = "1">S1&2</option>
-              <option value = "2">S3</option>
-              <option value = "3">S4</option>
-              <option value = "4">S5</option>
-              <option value = "5">S6</option>
-              <option value = "6">S7</option>
-              <option value = "7">S8</option>
-            </select>
+             <label class="fadeIn first" style="margin-left: 50%;">Select Semester</label>
+             <select id = "Semester List" class="fadeIn first" (change)="onSemesterChange()" [(ngModel)]="selectedSemester" [ngModelOptions]="{standalone: true}">
+               <option *ngFor="let item of dropdownLists.semesters" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
+             </select>
+          </p>
+          <p *ngIf = "!isDisabled">
+            <label class="fadeIn second" style="margin-left: 50%;">Select Branch</label>
+            <br>
+            <select id = "Branch List" class="fadeIn second" (change)="onBranchChange()" [(ngModel)]="selectedBranch" [ngModelOptions]="{standalone: true}" >
+              <option *ngFor="let item of dropdownLists.branches" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
+             </select>
          </p>
          <p>
-           <label class="fadeIn second" style="margin-left: 50%;">Select Branch</label>
-           <br>
-           <select id = "Branch List" class="fadeIn second">
-             <option value = "1">CS</option>
-             <option value = "2">EC</option>
-             <option value = "3">EE</option>
-             <option value = "4">ME</option>
+          <label class="fadeIn third" style="margin-left: 50%;">Select Subject</label>
+          <br>
+          <select id = "Subject List" class="fadeIn third" (change)="onSubjectChange()" [(ngModel)]="selectedSubject" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let item of dropdownLists.subjects" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
            </select>
-        </p>
-        <p>
-         <label class="fadeIn third" style="margin-left: 50%;">Select Subject</label>
-         <br>
-         <select id = "Subject List" class="fadeIn third">
-           <option value = "1">SUB1</option>
-           <option value = "2">sub2</option>
-           <option value = "3">S4</option>
-           <option value = "4">S5</option>
-           <option value = "5">S6</option>
-           <option value = "6">S7</option>
-           <option value = "7">S8</option>
-         </select>
+         </p>
+         <p *ngIf = "selectedSubject === 'Electives'">
+          <label class="fadeIn third" style="margin-left: 50%;">Select Elective</label>
+          <br>
+          <select id = "Elective List" class="fadeIn third" (change)="onElectivesChange()" [(ngModel)]="selectedElectives" [ngModelOptions]="{standalone: true}" >
+            <option *ngFor="let item of dropdownLists.electives" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
+           </select>
          </p>
       </div>
       <div class="content" style="margin-left: 30%;">
-        <a class="card fadeIn fourth" >
-          <span>Choose File to Upload</span>
-        </a>
-        <a class="card fadeIn fifth">
+        <!-- <a class="card fadeIn fourth" >-->
+          <input type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="video/mp4" />
+          <!--<span>Choose File to Upload</span>-->
+      <!--  </a>-->
+      <!-- <a class="card fadeIn fifth" >-->
+        <a class="card " (click)="uploadFile()">
           <span>Upload</span>
         </a>
         </div>
@@ -53,3 +47,8 @@
   </div>
 </body>
 <app-topbar></app-topbar>
+<div class="loader-backdrop fadeIn" [ngStyle]="{'display' : showLoader ? 'block' : 'none'}">
+  <div class="loader-content">
+<img src="../../../assets/images/loader.gif" alt="animation">
+</div>
+</div>

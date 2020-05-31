@@ -1,39 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { FileInfo } from 'src/app/modals/fileInfo';
+import { Subject, Observable } from 'rxjs';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UploadService {
 
-  constructor(private http: HttpClient) { }
+  // public rootParams = new Subject<any>();
+  // public sendDataOnRoot$ = this.rootParams.asObservable();
 
+  constructor(private http: HttpClient) {}
 
+  // sendDataOnRoot(data: any){
+  //   this.rootParams.next({data});
+  // }
 
+  getFiles(folderId: string) {
+    return gapi.client.drive.files
+      .list({
+        pageSize: 100,
+        fields: 'nextPageToken, files(id, name, mimeType, modifiedTime, size)',
+        q: `'${folderId}' in parents and trashed = false`,
+      })
+      .then((res) => {
+        const files: FileInfo[] = [];
+        res.result.files.forEach((file) =>
+          files.push(FileInfo.fromGoogleFile(file))
+        );
+        return files;
+      });
+  }
 
-  fileupload(file) {
+  // tslint:disable-next-line: variable-name
+  fileupload(dataFile: any, folderId: string) {
+    const file = dataFile;
+    const contentType = file.type || 'application/octet-stream';
+    const user = gapi.auth2.getAuthInstance().currentUser.get();
+    const oauthToken = user.getAuthResponse().access_token;
+    const initResumable = new XMLHttpRequest();
+    const folder = {
+      name: file.name,
+      mimeType: contentType,
+      parents: [folderId],
+      body: file,
+    };
 
-    // const auth = new google.auth.JWT(
-    //   credentials.client_id, null,
-    //   credentials.private_key, scopes
-    // );
-    const url = `https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable`;
-    // const accessToken = localStorage.getItem('accessToken');
-
-    // return this.http
-    //     .post(url, { name: name, role: 'reader', type: 'anyone', 'parents': [{"id":parentId}] }, options)
-    //     .toPromise()
-    //     .then(response => this.gDriveUploadFile(content, response.headers.get('location')));
-    // }
-    let headers = new HttpHeaders({
-      Authorization: 'Bearer ' + 'N5XZ17q6hMJswj8HK5Ehaagg',
-      'Content-Type': 'application/json; charset=UTF-8',
-      'X-Upload-Content-Type': 'text',//file.type,
-    });
-
-    let options = { headers: headers }; // Create a request option
-
-    return this.http.post(`${url}`, file, options); //call proper resumable upload endpoint and pass just file as body
-    //     .toPromise()
+    return gapi.client.drive.files
+      .create({
+        resource: folder,
+        fields: 'id, name, mimeType, modifiedTime, size',
+      })
+      .then((res) => {
+        return res;
+      });
   }
 }

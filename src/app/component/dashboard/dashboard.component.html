@@ -7,18 +7,14 @@
     <!-- Tabs Titles -->
     <!-- Login Form -->
     <form>
-
-        <a class="card fadeIn first" [routerLink]="['/noteup']" >
+        <a class="card fadeIn first" (click)="redirectTo('Notes')">
           <span>Notes</span>
         </a>
-        <a class="card fadeIn second"  [routerLink]="['/questionpaperup']">
+        <a class="card fadeIn second"  (click)="redirectTo('Question Papers')">
            <span>Question Paper</span>
         </a>
-        <a class="card fadeIn third"  [routerLink]="['/videoup']">
-           <span>Videos</span>
-        </a>
-        <a class="card fadeIn fourth" [routerLink]="['/noticeup']">
-          <span>Notice</span>
+        <a class="card fadeIn third" (click)="redirectTo('Lecture Videos')">
+           <span>Lecture Videos</span>
         </a>
     </form>
   </div>

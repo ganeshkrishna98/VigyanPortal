@@ -5,42 +5,26 @@
       <form>
         <div class="container" style="text-align: center;" >
           <p >
-            <label class="fadeIn first" style="margin-left: 50%;">Select Semester</label>
-
-            <select id="Semester List" class="fadeIn first" (change)="getBranches($event)" [(ngModel)]="selectedSemester" [ngModelOptions]="{standalone: true}">
-              <option *ngFor="let item of files" [ngValue]="item">{{item.Name}}</option>
-            </select>
+             <label class="fadeIn first" style="margin-left: 50%;">Select Semester</label>
+             <select id = "Semester List" class="fadeIn first" (change)="onSemesterChange()" [(ngModel)]="selectedSemester" [ngModelOptions]="{standalone: true}">
+               <option *ngFor="let item of dropdownLists.semesters" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
+             </select>
+          </p>
+          <p *ngIf = "!isDisabled">
+            <label class="fadeIn second" style="margin-left: 50%;">Select Branch</label>
+            <br>
+            <select id = "Branch List" class="fadeIn second" (change)="onBranchChange()" [(ngModel)]="selectedBranch" [ngModelOptions]="{standalone: true}" >
+              <option *ngFor="let item of dropdownLists.branches" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
+             </select>
          </p>
-         <p>
-           <label class="fadeIn second" style="margin-left: 50%;">Select Branch</label>
-           <br>
-           <!-- <ng-container (click)="getBranches($event)"> -->
-           <select id = "Branch List" class="fadeIn second" >
-             <option value = "1">CS</option>
-           </select>
-           <!-- </ng-container> -->
-        </p>
-        <!-- <p>
-         <label class="fadeIn third" style="margin-left: 50%;">Select Subject</label>
-         <br>
-         <select id = "Subject List" class="fadeIn third">
-           <option value = "1">SUB1</option>
-           <option value = "2">sub2</option>
-           <option value = "3">S4</option>
-           <option value = "4">S5</option>
-           <option value = "5">S6</option>
-           <option value = "6">S7</option>
-           <option value = "7">S8</option>
-         </select>
-         </p> -->
       </div>
       <div class="content" style="margin-left: 30%;">
         <!-- <a class="card fadeIn fourth" >-->
-          <input type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" [(ngModel)] ="fileUploaded" multiple="multiple" accept="text/*" />
+          <input type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="text/*" />
           <!--<span>Choose File to Upload</span>-->
       <!--  </a>-->
       <!-- <a class="card fadeIn fifth" >-->
-        <a class="card " (click)="upload()">
+        <a class="card " (click)="uploadFile()">
           <span>Upload</span>
         </a>
         </div>
@@ -49,5 +33,3 @@
   </div>
 </body>
 <app-topbar></app-topbar>
-
-
