@@ -1,0 +1,26 @@
+.popover-container{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display:none;
+}
+.popover-content{
+  width: 30%;
+  height: auto;
+  background: #fff;
+  position: absolute;
+  border-radius: 4px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 2%;
+  margin: 15% 50% 10% 35%;
+  text-align: center;
+}
+.popover-content p{
+  font-family: inherit;
+  font-size: large;
+ }
+.popover-content button{
+  width: 40%;
+}

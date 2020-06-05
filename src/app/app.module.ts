@@ -29,6 +29,7 @@ import { AppContext } from 'src/infrastructures/app.context';
 import { AppSession } from 'src/infrastructures/sessions/app.session';
 import { LoaderComponent } from './component/common/loader/loader.component';
 import { PopoverComponent } from './component/common/popover/popover.component';
+import { AuthpopComponent } from './component/common/authpop/authpop.component';
 
 if (environment.production) {
   enableProdMode();
@@ -59,6 +60,7 @@ export function initGapi(gapiSession: GapiSession) {
     ForgotpasswdComponent,
     LoaderComponent,
     PopoverComponent,
+    AuthpopComponent,
   ],
   imports: [
     BrowserModule,

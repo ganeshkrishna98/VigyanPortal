@@ -15,8 +15,15 @@
         <a class="card fadeIn third" (click)="redirectTo('Lecture Videos')">
            <span>Lecture Videos</span>
         </a>
+        <a class="card fadeIn third" (click)="authorize()" >
+          <span>Authorize</span>
+       </a>
     </form>
   </div>
+  <span style="margin-top: 2%;">For first time users : Please authenticate your devices using the vigyan credentials</span>
+  <span>Email Id : vigyan.cem@gmail.com</span>
+  <span>Password: vigyan123</span>
 </div>
 </body>
 <app-topbar></app-topbar>
+<app-authpop></app-authpop>

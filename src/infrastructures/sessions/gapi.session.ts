@@ -3,7 +3,7 @@ import { AppRepository } from '../repositories/app.repository';
 const CLIENT_ID = '130754741123-e31u7h8l1sv4frss8lbpq13cgg9op6h7.apps.googleusercontent.com';
 const API_KEY = 'AIzaSyA_m0h7en17J2d-cyPbw4E6ullxsd4UEIk';
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
-const SCOPES = 'https://www.googleapis.com/auth/drive';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 @Injectable()
 export class GapiSession {

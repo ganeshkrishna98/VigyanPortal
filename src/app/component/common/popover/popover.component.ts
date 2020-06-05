@@ -30,7 +30,7 @@ export class PopoverComponent implements OnInit {
 
   closePopover(){
     this.popover.nativeElement.style.display = 'none';
-    this.router.navigate(['./dashboard'], {relativeTo: this.activatedRoute.parent})
+    this.router.navigate(['./dashboard'], {relativeTo: this.activatedRoute.parent});
   }
 
 }

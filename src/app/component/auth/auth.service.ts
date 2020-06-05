@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
-declare const google: any;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   user: Observable<firebase.User>;
+  public popoverData = new Subject<any>();
+  public sendPopoverData$ = this.popoverData.asObservable();
 
   constructor(private firebaseAuth: AngularFireAuth, private http: HttpClient) {
     this.user = firebaseAuth.authState;
@@ -32,4 +34,7 @@ export class AuthService {
     return this.http.get('../../../assets/credentials.json');
   }
 
+  sendPopoverData(data: any) {
+    this.popoverData.next(data);
+  }
 }
