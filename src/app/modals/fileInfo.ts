@@ -7,7 +7,7 @@ export class FileInfo {
     fileInfo.Id = file.id;
     fileInfo.MimeType = file.mimeType;
     fileInfo.ModifiedTime = new Date(file.modifiedTime);
-    fileInfo.Name = file.name;
+    fileInfo['Name'] = file.name;
     fileInfo.Shared = file.shared;
     fileInfo.Size = file.size;
     return fileInfo;
@@ -24,7 +24,7 @@ export class FileInfo {
   // tslint:disable-next-line: member-ordering
   ModifiedTime: Date;
   // tslint:disable-next-line: member-ordering
-  Name: string;
+ ['Name']: string;
   // tslint:disable-next-line: member-ordering
   Progress: number;
   // tslint:disable-next-line: member-ordering

@@ -91,12 +91,18 @@ export class NoteupComponent implements OnInit {
         .fileupload(this.fileToUpload, this.folderLocation)
         .then(
           (res) => {
-            this.uploadService.sendLoaderData('hide');
-            this.uploadService.sendPopoverData(res.result.name);
+            if (res.status === 200){
+              this.uploadService.sendLoaderData('hide');
+              this.uploadService.sendPopoverData('Upload Success');
+            }else{
+              this.uploadService.sendLoaderData('hide');
+              this.uploadService.sendPopoverData('Upload Failed');
+            }
           },
           (err) => {
             this.showLoader = false;
-            alert('Upload failed!');
+            this.uploadService.sendLoaderData('hide');
+            this.uploadService.sendPopoverData('Server error. Please try later.');
           }
         );
     }

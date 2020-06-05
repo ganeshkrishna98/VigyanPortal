@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 // import { UserSession } from "./user.session";
-import { GapiSession } from "./gapi.session";
+import { GapiSession } from './gapi.session';
 // import { BreadCrumbSession } from "./breadcrumb.session";
-import { FileSession } from "./file.session";
+import { FileSession } from './file.session';
 
 @Injectable()
 export class AppSession {
@@ -15,7 +15,7 @@ export class AppSession {
 
     }
 
-    get File():FileSession {
+    get File(): FileSession {
         return this.fileSession;
     }
     get Gapi(): GapiSession {

@@ -1,46 +1,105 @@
 <body>
   <div class="wrapper fadeInDown">
-   <h2 style="text-align: center;">Upload Notes</h2>
+    <h2 style="text-align: center;">Upload Notes</h2>
     <div id="formContent" class="formContent">
       <form>
-        <div class="container" style="text-align: center;" >
-          <p >
-             <label class="fadeIn first" style="margin-left: 50%;">Select Semester</label>
-             <select id = "Semester List" class="fadeIn first" (change)="onSemesterChange()" [(ngModel)]="selectedSemester" [ngModelOptions]="{standalone: true}">
-               <option *ngFor="let item of dropdownLists.semesters" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
-             </select>
+        <div class="container" style="text-align: center;">
+          <p>
+            <label class="fadeIn first" style="margin-left: 50%;"
+              >Select Semester</label
+            >
+            <select
+              id="Semester List"
+              class="fadeIn first"
+              (change)="onSemesterChange()"
+              [(ngModel)]="selectedSemester"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option
+                *ngFor="let item of dropdownLists.semesters"
+                [value]="item.Name"
+                >{{ item && item.Name !== undefined ? item.Name : "" }}</option
+              >
+            </select>
           </p>
-          <p *ngIf = "!isDisabled">
-            <label class="fadeIn second" style="margin-left: 50%;">Select Branch</label>
-            <br>
-            <select id = "Branch List" class="fadeIn second" (change)="onBranchChange()" [(ngModel)]="selectedBranch" [ngModelOptions]="{standalone: true}" >
-              <option *ngFor="let item of dropdownLists.branches" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
-             </select>
-         </p>
-         <p>
-          <label class="fadeIn third" style="margin-left: 50%;">Select Subject</label>
-          <br>
-          <select id = "Subject List" class="fadeIn third" (change)="onSubjectChange()" [(ngModel)]="selectedSubject" [ngModelOptions]="{standalone: true}">
-            <option *ngFor="let item of dropdownLists.subjects" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
-           </select>
-         </p>
-         <p *ngIf = "selectedSubject === 'Electives'">
-          <label class="fadeIn third" style="margin-left: 50%;">Select Elective</label>
-          <br>
-          <select id = "Elective List" class="fadeIn third" (change)="onElectivesChange()" [(ngModel)]="selectedElectives" [ngModelOptions]="{standalone: true}" >
-            <option *ngFor="let item of dropdownLists.electives" [value] = "item.Name">{{item && item !== undefined ? item.Name : ''}}</option>
-           </select>
-         </p>
-      </div>
-      <div class="content" style="margin-left: 40%;">
-        <!-- <a class="card fadeIn fourth" >-->
-          <input  type="file" class="card" #fileUpload id="fileUpload" name="fileUpload" (change)="onChangeFiles($event)" multiple="multiple" accept="text/*" />
-          <span>{{fileToUpload && fileToUpload.name ? fileToUpload.name : fileToUpload}}</span>
-      <!--  </a>-->
-      <!-- <a class="card fadeIn fifth" >-->
-        <a class="card " (click)="uploadFile()">
-          <span>Upload</span>
-        </a>
+          <p *ngIf="!isDisabled">
+            <label class="fadeIn second" style="margin-left: 50%;"
+              >Select Branch</label
+            >
+            <br />
+            <select
+              id="Branch List"
+              class="fadeIn second"
+              (change)="onBranchChange()"
+              [(ngModel)]="selectedBranch"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option
+                *ngFor="let item of dropdownLists.branches"
+                [value]="item.Name"
+                >{{ item && item.Name !== undefined ? item.Name : "" }}</option
+              >
+            </select>
+          </p>
+          <p>
+            <label class="fadeIn third" style="margin-left: 50%;"
+              >Select Subject</label
+            >
+            <br />
+            <select
+              id="Subject List"
+              class="fadeIn third"
+              (change)="onSubjectChange()"
+              [(ngModel)]="selectedSubject"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option
+                *ngFor="let item of dropdownLists.subjects"
+                [value]="item.Name"
+                >{{ item && item.Name !== undefined ? item.Name : "" }}</option
+              >
+            </select>
+          </p>
+          <p *ngIf="selectedSubject === 'Electives'">
+            <label class="fadeIn third" style="margin-left: 50%;"
+              >Select Elective</label
+            >
+            <br />
+            <select
+              id="Elective List"
+              class="fadeIn third"
+              (change)="onElectivesChange()"
+              [(ngModel)]="selectedElectives"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option
+                *ngFor="let item of dropdownLists.electives"
+                [value]="item.Name"
+                >{{ item && item.Name !== undefined ? item.Name : "" }}</option
+              >
+            </select>
+          </p>
+        </div>
+        <div class="content" style="margin-left: 40%;">
+          <input
+            type="file"
+            class="card"
+            #fileUpload
+            id="fileUpload"
+            name="fileUpload"
+            (change)="onChangeFiles($event)"
+            multiple="multiple"
+            accept="doc,docx,rtf,txt,pdf"
+          />
+          <span>{{
+            fileToUpload && fileToUpload.name ? fileToUpload.name : fileToUpload
+          }}</span>
+          <input
+            type="submit"
+            value="Upload"
+            (click)="uploadFile()"
+            [disabled]="!fileToUpload || !selectedSemester"
+          />
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
+// import { GapiSession } from './../../../infrastructures/sessions/gapi.session';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UploadService } from './../upload/upload.service';
 import { Component, OnInit, NgZone } from '@angular/core';
-import { relative } from 'path';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,10 +16,13 @@ export class DashboardComponent implements OnInit {
     private uploadService: UploadService,
     private zone: NgZone,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    // private GapiSession: GapiSession
+    ) { }
 
   ngOnInit(): void {
     this.getFolders();
+    // this.GapiSession.signIn();
   }
 
   getFolders(){
@@ -34,9 +37,9 @@ export class DashboardComponent implements OnInit {
 
   redirectTo(data: any){
   const itemData = this.dashBoardItems.find(element => element.Name === data);
+  // tslint:disable-next-line: max-line-length
   const routePath = itemData.Name === 'Notes' ? '/noteup' : itemData.Name === 'Question Papers' ? '/questionpaperup' : itemData.Name === 'Lecture Videos' ? '/videoup' : '';
   // this.uploadService.sendDataOnRoot(itemData);
   this.router.navigate([routePath], {relativeTo: this.activatedRoute.parent, state: {itemData}});
   }
-
 }

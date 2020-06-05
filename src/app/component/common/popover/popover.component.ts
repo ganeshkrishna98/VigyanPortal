@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 export class PopoverComponent implements OnInit {
   subscription: Subscription;
   @ViewChild('popover') private popover: ElementRef;
+  message = '';
 
-  content = '';
   constructor(
     private uploadService: UploadService,
     private elementRef: ElementRef,
@@ -22,9 +22,8 @@ export class PopoverComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.uploadService.sendPopoverData$.subscribe(
       resp => {
-        this.content = 'resp';
+        this.message = resp;
         this.popover.nativeElement.style.display = 'block';
-        ;
       }
     );
   }

@@ -13,16 +13,12 @@ import { Subscription } from 'rxjs';
 export class QuestionpaperupComponent implements OnInit {
   selectedSemester = '';
   selectedBranch = '';
-  // selectedSubject = '';
-  // selectedElectives = '';
   folderLocation = '';
   noteRoot = [];
   // tslint:disable-next-line: ban-types
   dropdownLists = {
     semesters: [],
     branches: [],
-    // subjects: [],
-    // electives: [],
   };
   fileToUpload: File;
   // tslint:disable-next-line: ban-types
@@ -87,22 +83,28 @@ export class QuestionpaperupComponent implements OnInit {
         .fileupload(this.fileToUpload, this.folderLocation)
         .then(
           (res) => {
-            this.uploadService.sendLoaderData('hide');
-            this.uploadService.sendPopoverData(res.result.name);
+            if (res.status === 200){
+              this.uploadService.sendLoaderData('hide');
+              this.uploadService.sendPopoverData('Upload Success');
+            }else{
+              this.uploadService.sendLoaderData('hide');
+              this.uploadService.sendPopoverData('Upload Failed');
+            }
           },
           (err) => {
             this.showLoader = false;
-            alert('Upload failed!');
+            this.uploadService.sendLoaderData('hide');
+            this.uploadService.sendPopoverData('Server error. Please try later.');
           }
         );
     }
   }
 
   onSemesterChange() {
-    this.isDisabled =
-      this.selectedSemester === 'S1 &S2'
-        ? true
-        : false;
+    // this.isDisabled =
+    //   this.selectedSemester === 'S1 &S2'
+    //     ? true
+    //     : false;
     if (this.selectedBranch !== '') {
       this.dropdownLists.branches = [];
       this.selectedBranch = '';
@@ -117,7 +119,6 @@ export class QuestionpaperupComponent implements OnInit {
     const itemData = this.dropdownLists.branches.find(
       (element) => element.Name === this.selectedBranch
     );
-    // this.getList(itemData);
     this.folderLocation = itemData.Id;
   }
 

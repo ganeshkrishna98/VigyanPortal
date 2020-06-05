@@ -1,22 +1,3 @@
-// upload.js, from https://github.com/googledrive/cors-upload-sample
-// Contributors Steve Bazyl, Mike Procopio, Jeffrey Posnick, Renaud Sauvain
-// License: Apache 2.0 http://www.apache.org/licenses/LICENSE-2.0
-//
-// Implements Resumable Upload for Google Drive as described by
-// https://developers.google.com/drive/v3/web/resumable-upload
-//
-// Modified by Paul Brewer, Economic and Financial Technology Consulting LLC
-// Nov. 1 2017
-//  1. use Google Drive API V3 instead of V2
-//  2. wrap code in a "use strict" IIFE, only exposing MediaUploader
-//  3. explicitly export MediaUploader as window.UploaderForGoogleDrive
-//  4. if options.token undefined, get access token from existing window.gapi instance, if any
-//
-// Nov. 7, 2017
-//  5. Change file metadata "title" to "name" in line with Drive API v2-->v3 migration advisory
-//  6. export promise wrapper as window.pUploaderForGoogleDrive
-
-// jshint browser:true, strict:true
 
 window.UploaderForGoogleDrive = (function(){
   "use strict";
@@ -77,15 +58,6 @@ return Math.floor(Math.random() * (max - min + 1) + min);
    * Helper class for resumable uploads using XHR/CORS. Can upload any Blob-like item, whether
    * files or in-memory constructs.
    *
-   * @example
-   * var content = new Blob(["Hello world"], {"type": "text/plain"});
-   * var uploader = new MediaUploader({
-   *   file: content,
-   *   token: accessToken,
-   *   onComplete: function(data) { ... }
-   *   onError: function(data) { ... }
-   * });
-   * uploader.upload();
    *
    * @constructor
    * @param {object} options Hash of options
@@ -105,10 +77,10 @@ this.file = options.file;
 this.contentType = options.contentType || this.file.type || 'application/octet-stream';
 this.metadata = options.metadata || {
     'name': this.file.name,
-    'mimeType': this.contentType
+    'mimeType': this.contentType,
 };
-// if options.token omitted, get access_token from existing window.gapi instance, if any : PJB 2017-11-01
-// see https://developers.google.com/api-client-library/javascript/reference/referencedocs
+
+
 if (options.token){
     this.token = options.token;
 } else {
@@ -139,14 +111,12 @@ if (!this.url) {
     params.uploadType = 'resumable';
     this.url = this.buildUrl_(options.fileId, params, options.baseUrl);
 }
-// PJB 2018.01.22 Change "update/replace" method from "PUT" to "PATCH"
-//   per https://developers.google.com/drive/v3/reference/files/update
+
+
 this.httpMethod = options.fileId ? 'PATCH' : 'POST';
   };
 
-  /**
-   * Initiate the upload.
-   */
+  
   MediaUploader.prototype.upload = function() {
 var self = this;
 var xhr = new XMLHttpRequest();

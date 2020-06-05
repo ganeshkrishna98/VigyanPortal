@@ -1,9 +1,10 @@
+import { FileRepository } from './../infrastructures/repositories/file.repository';
 import { FileSession } from './../infrastructures/sessions/file.session';
 import { UploadService } from './component/upload/upload.service';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { GapiSession } from '../infrastructures/sessions/gapi.session';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,13 +24,11 @@ import { AuthService } from './component/auth/auth.service';
 import {enableProdMode} from '@angular/core';
 import { ForgotpasswdComponent } from './component/forgotpasswd/forgotpasswd.component';
 import { AppRepository } from 'src/infrastructures/repositories/app.repository';
-import { FileRepository } from 'src/infrastructures/repositories/file.repository';
 import { UserRepository } from 'src/infrastructures/repositories/user.repository';
 import { AppContext } from 'src/infrastructures/app.context';
 import { AppSession } from 'src/infrastructures/sessions/app.session';
 import { LoaderComponent } from './component/common/loader/loader.component';
 import { PopoverComponent } from './component/common/popover/popover.component';
-import { SortByNamePipe } from './component/common/sort-by-name.pipe';
 
 if (environment.production) {
   enableProdMode();
@@ -60,7 +59,6 @@ export function initGapi(gapiSession: GapiSession) {
     ForgotpasswdComponent,
     LoaderComponent,
     PopoverComponent,
-    SortByNamePipe,
   ],
   imports: [
     BrowserModule,
