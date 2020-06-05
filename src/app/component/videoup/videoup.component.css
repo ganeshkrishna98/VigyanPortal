@@ -372,7 +372,7 @@ input::-webkit-file-upload-button {
   visibility: hidden;
 }
 input::before {
-    content: 'Select some files';
+    content: 'Select files';
     display: inline-block;
     border: 1px solid #999;
     border-radius: 3px;
