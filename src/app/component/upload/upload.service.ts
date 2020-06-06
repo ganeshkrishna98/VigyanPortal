@@ -29,8 +29,6 @@ export class UploadService {
   }
 
   getFiles(folderId: string) {
-    // console.log(gapi.auth2.GoogleAuth);
-    // this.random_1(folderId);
     return gapi.client.drive.files
       .list({
         pageSize: 100,
@@ -74,24 +72,4 @@ export class UploadService {
     );
   }
 
-  // random_1(folderId){
-  //   debugger;
-  //   // let headers = new Headers({
-  //   //   'Content-Type': 'application/json',
-  //   //   Authorization : 'Bearer' + gapi.auth.getToken().access_token
-  //   // })
-  //   const params = new HttpParams().set("q", `'${folderId}' in parents and trashed = false`)
-
-  //   return fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and trashed = false&key=AIzaSyA_m0h7en17J2d-cyPbw4E6ullxsd4UEIk`, {
-  //     method: 'GET',
-  //     headers: new Headers({ Authorization: 'Bearer' + gapi.auth.getToken().access_token,  'Content-Type': 'application/json', }),
-  //   }).then(
-  //     response => {
-  //       console.log(response);
-  //     },
-  //     error => {
-  //       console.log(error);
-  //     }
-  //   )
-  // }
 }

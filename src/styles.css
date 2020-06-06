@@ -2,3 +2,10 @@
 a.card, select{
   cursor: pointer;
 }
+.disabled{
+  background-color: gray !important;
+  cursor: not-allowed !important;
+}
+.disabled:hover {
+  box-shadow: none !important;
+}

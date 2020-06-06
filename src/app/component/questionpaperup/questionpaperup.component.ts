@@ -77,8 +77,8 @@ export class QuestionpaperupComponent implements OnInit {
   }
 
   uploadFile() {
-    this.uploadService.sendLoaderData('show');
     if (this.folderLocation) {
+      this.uploadService.sendLoaderData('show');
       this.uploadService
         .fileupload(this.fileToUpload, this.folderLocation)
         .then(
@@ -97,6 +97,8 @@ export class QuestionpaperupComponent implements OnInit {
             this.uploadService.sendPopoverData('Server error. Please try later.');
           }
         );
+    }else{
+      this.uploadService.sendPopoverData('Select appropriate folder before uploading.');
     }
   }
 
@@ -105,6 +107,7 @@ export class QuestionpaperupComponent implements OnInit {
     //   this.selectedSemester === 'S1 &S2'
     //     ? true
     //     : false;
+    this.fileToUpload = undefined;
     if (this.selectedBranch !== '') {
       this.dropdownLists.branches = [];
       this.selectedBranch = '';
@@ -116,6 +119,7 @@ export class QuestionpaperupComponent implements OnInit {
   }
 
   onBranchChange() {
+    this.fileToUpload = undefined;
     const itemData = this.dropdownLists.branches.find(
       (element) => element.Name === this.selectedBranch
     );

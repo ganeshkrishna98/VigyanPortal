@@ -29,6 +29,9 @@ export class AuthpopComponent implements OnInit {
 
   closePopover(){
     this.authpopover.nativeElement.style.display = 'none';
-    this.router.navigate(['']);
+    if (this.message === "Successfully Authenticated. Login in again to start using"){
+      // this.router.navigate(['']);
+    }
+
   }
 }

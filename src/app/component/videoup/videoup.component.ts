@@ -60,16 +60,24 @@ export class VideoupComponent implements OnInit {
     this.uploadService.getFiles(data.Id).then((response) => {
       this.zone.run(() => {
         if (this.dropdownLists.semesters.length === 0) {
-          this.dropdownLists.semesters = response.sort((current, next) => current.Name.localeCompare(next.Name));
+          this.dropdownLists.semesters = response.sort((current, next) =>
+            current.Name.localeCompare(next.Name)
+          );
         } else if (
           this.dropdownLists.branches.length === 0 &&
           this.isDisabled !== true
         ) {
-          this.dropdownLists.branches = response.sort((current, next) => current.Name.localeCompare(next.Name));
+          this.dropdownLists.branches = response.sort((current, next) =>
+            current.Name.localeCompare(next.Name)
+          );
         } else if (this.dropdownLists.subjects.length === 0) {
-          this.dropdownLists.subjects = response.sort((current, next) => current.Name.localeCompare(next.Name));
+          this.dropdownLists.subjects = response.sort((current, next) =>
+            current.Name.localeCompare(next.Name)
+          );
         } else if (this.dropdownLists.electives.length === 0) {
-          this.dropdownLists.electives = response.sort((current, next) => current.Name.localeCompare(next.Name));
+          this.dropdownLists.electives = response.sort((current, next) =>
+            current.Name.localeCompare(next.Name)
+          );
         }
       });
     });
@@ -84,16 +92,16 @@ export class VideoupComponent implements OnInit {
   }
 
   uploadFile() {
-    this.uploadService.sendLoaderData('show');
     if (this.folderLocation) {
+      this.uploadService.sendLoaderData('show');
       this.uploadService
         .fileupload(this.fileToUpload, this.folderLocation)
         .then(
           (res) => {
-            if (res.status === 200){
+            if (res.status === 200) {
               this.uploadService.sendLoaderData('hide');
               this.uploadService.sendPopoverData('Upload Success');
-            }else{
+            } else {
               this.uploadService.sendLoaderData('hide');
               this.uploadService.sendPopoverData('Upload Failed');
             }
@@ -101,13 +109,20 @@ export class VideoupComponent implements OnInit {
           (err) => {
             this.showLoader = false;
             this.uploadService.sendLoaderData('hide');
-            this.uploadService.sendPopoverData('Server error. Please try later.');
+            this.uploadService.sendPopoverData(
+              'Server error. Please try later.'
+            );
           }
         );
+    } else {
+      this.uploadService.sendPopoverData(
+        'Select appropriate folder before uploading.'
+      );
     }
   }
 
   onSemesterChange() {
+    this.fileToUpload = undefined;
     this.isDisabled =
       this.selectedSemester === 'S1 and S2'
         ? true
@@ -129,6 +144,7 @@ export class VideoupComponent implements OnInit {
   }
 
   onBranchChange() {
+    this.fileToUpload = undefined;
     if (this.selectedSubject !== '' || this.selectedElectives !== '') {
       this.dropdownLists.subjects = [];
       this.dropdownLists.electives = [];
@@ -142,8 +158,10 @@ export class VideoupComponent implements OnInit {
   }
 
   onSubjectChange() {
+    this.fileToUpload = undefined;
     if (this.selectedElectives !== '') {
-      (this.dropdownLists.electives = []), (this.selectedElectives = '');
+      this.dropdownLists.electives = [];
+      this.selectedElectives = '';
     }
     const itemData = this.dropdownLists.subjects.find(
       (element) => element.Name === this.selectedSubject
@@ -153,6 +171,7 @@ export class VideoupComponent implements OnInit {
   }
 
   onElectivesChange() {
+    this.fileToUpload = undefined;
     const itemData = this.dropdownLists.electives.find(
       (element) => element.Name === this.selectedElectives
     );

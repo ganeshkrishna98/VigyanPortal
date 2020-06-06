@@ -11,6 +11,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   dashBoardItems = [];
+  // tslint:disable-next-line: ban-types
+  isFolders: Boolean = false;
 
   // tslint:disable-next-line: max-line-length
   constructor(
@@ -27,27 +29,36 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  // isDisabled: Boolean = false;
+  async authorize(){
+    await this.gapiSession.signIn();
+    if (this.gapiSession.isSignedIn ){
+      await this.getFolders();
+      if (this.isFolders){
+        this.authService.sendPopoverData('Successfully Authorized');
+      }
 
-  // authstat(){
-  //   // tslint:disable-next-line: no-unused-expression
-  //   if (this.gapiSession.isSignedIn === true){
-  //     this.isDisabled = true;
-  //   }
-  // }
-
-  authorize(){
-    this.gapiSession.signIn();
-    this.authService.sendPopoverData('Successfully Authenticated. Login in again to start using');
-
+    }
   }
 
-  getFolders(){
-    this.uploadService.getFiles('root').then(
+
+  async getFolders(){
+    await this.uploadService.getFiles('root').then(
       response => {
         this.zone.run(() => {
-          this.dashBoardItems = response;
+          // tslint:disable-next-line: max-line-length
+          this.isFolders = (response[0].Id === '1R9Z3dWPXAMdJAVKW4JjRKjB1AIuCPfXx' && response[1].Id === '1tO6MoyuKBdqBDPFD5Mau-A_BOjQMRUGC' && response[2].Id === '14I7y-iThfN_jPTD7hS1PV_h5UN09Q2WT') ? true : false;
+          ;
+          if(this.isFolders){
+            this.dashBoardItems = response;
+          }else{
+            this.authService.sendPopoverData('Authentication Error');
+          }
+
         });
+      },
+      error => {
+        this.authService.sendPopoverData('Unauthorized device, Please authenticate your device');
+        // this.authorize();
       }
     );
   }

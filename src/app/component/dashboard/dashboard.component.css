@@ -190,7 +190,7 @@ a,
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
-  height: 350px;
+  height: fit-content;
 }
 
 #formFooter {
@@ -338,4 +338,7 @@ form{
   margin-top:2%;
 }
 
-
+#formContent form{
+  height: fit-content;
+  padding-bottom: 5%;
+}

@@ -5,12 +5,12 @@
       <form>
         <div class="container" style="text-align: center;">
           <p>
-            <label class="fadeIn first" style="margin-left: 50%;"
+            <label style="margin-left: 50%;"
               >Select Semester</label
             >
             <select
               id="Semester List"
-              class="fadeIn first"
+              style="margin-left: 25%;"
               (change)="onSemesterChange()"
               [(ngModel)]="selectedSemester"
               [ngModelOptions]="{ standalone: true }"
@@ -23,13 +23,13 @@
             </select>
           </p>
           <p *ngIf="!isDisabled">
-            <label class="fadeIn second" style="margin-left: 50%;"
+            <label style="margin-left: 50%;"
               >Select Branch</label
             >
             <br />
             <select
               id="Branch List"
-              class="fadeIn second"
+              style="margin-left: 25%;"
               (change)="onBranchChange()"
               [(ngModel)]="selectedBranch"
               [ngModelOptions]="{ standalone: true }"
@@ -42,13 +42,13 @@
             </select>
           </p>
           <p>
-            <label class="fadeIn third" style="margin-left: 50%;"
+            <label style="margin-left: 50%;"
               >Select Subject</label
             >
             <br />
             <select
               id="Subject List"
-              class="fadeIn third"
+              style="margin-left: 25%;"
               (change)="onSubjectChange()"
               [(ngModel)]="selectedSubject"
               [ngModelOptions]="{ standalone: true }"
@@ -61,13 +61,13 @@
             </select>
           </p>
           <p *ngIf="selectedSubject === 'Electives'">
-            <label class="fadeIn third" style="margin-left: 50%;"
+            <label style="margin-left: 50%;"
               >Select Elective</label
             >
             <br />
             <select
               id="Elective List"
-              class="fadeIn third"
+              style="margin-left: 25%;"
               (change)="onElectivesChange()"
               [(ngModel)]="selectedElectives"
               [ngModelOptions]="{ standalone: true }"
@@ -99,6 +99,8 @@
             value="Upload"
             (click)="uploadFile()"
             [disabled]="!fileToUpload || !selectedSemester"
+            [ngClass]="{'disabled': !fileToUpload || !selectedSemester}"
+            [ngClass]="{'disabled': !fileToUpload || !selectedSemester && ((!selectedBranch && !selectedElectives) || isDisabled)}"
           />
         </div>
       </form>

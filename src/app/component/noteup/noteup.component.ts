@@ -28,6 +28,8 @@ export class NoteupComponent implements OnInit {
   // tslint:disable-next-line: ban-types
   isDisabled: Boolean = false;
   // tslint:disable-next-line: ban-types
+  isDisableUpload: Boolean = true;
+  // tslint:disable-next-line: ban-types
   showLoader: Boolean = false;
   subscription: Subscription;
 
@@ -82,11 +84,12 @@ export class NoteupComponent implements OnInit {
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const files: FileList = target.files;
     this.fileToUpload = files[0];
+    this.isDisableUpload = this.fileToUpload ? false : true;
   }
 
   uploadFile() {
-    this.uploadService.sendLoaderData('show');
     if (this.folderLocation) {
+      this.uploadService.sendLoaderData('show');
       this.uploadService
         .fileupload(this.fileToUpload, this.folderLocation)
         .then(
@@ -105,10 +108,13 @@ export class NoteupComponent implements OnInit {
             this.uploadService.sendPopoverData('Server error. Please try later.');
           }
         );
+    }else{
+      this.uploadService.sendPopoverData('Select appropriate folder before uploading.');
     }
   }
 
   onSemesterChange() {
+    this.fileToUpload = undefined;
     this.isDisabled =
       this.selectedSemester === 'S1 and S2'
         ? true
@@ -122,6 +128,7 @@ export class NoteupComponent implements OnInit {
       this.selectedSubject = '';
       this.selectedBranch = '';
       this.selectedElectives = '';
+
     }
     const itemData = this.dropdownLists.semesters.find(
       (element) => element.Name === this.selectedSemester
@@ -130,6 +137,7 @@ export class NoteupComponent implements OnInit {
   }
 
   onBranchChange() {
+    this.fileToUpload = undefined;
     if (this.selectedSubject !== '' || this.selectedElectives !== '') {
       this.dropdownLists.subjects = [];
       this.dropdownLists.electives = [];
@@ -143,8 +151,10 @@ export class NoteupComponent implements OnInit {
   }
 
   onSubjectChange() {
+    this.fileToUpload = undefined;
     if (this.selectedElectives !== '') {
-      (this.dropdownLists.electives = []), (this.selectedElectives = '');
+      this.dropdownLists.electives = [];
+      this.selectedElectives = '';
     }
     const itemData = this.dropdownLists.subjects.find(
       (element) => element.Name === this.selectedSubject
@@ -154,6 +164,7 @@ export class NoteupComponent implements OnInit {
   }
 
   onElectivesChange() {
+    this.fileToUpload = undefined;
     const itemData = this.dropdownLists.electives.find(
       (element) => element.Name === this.selectedElectives
     );

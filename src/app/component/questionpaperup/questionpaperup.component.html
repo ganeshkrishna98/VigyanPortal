@@ -61,6 +61,8 @@
             value="Upload"
             (click)="uploadFile()"
             [disabled]="!fileToUpload || !selectedSemester"
+            [ngClass]="{'disabled': !fileToUpload || !selectedSemester}"
+            [ngClass]="{'disabled': !fileToUpload || !selectedSemester && !selectedBranch}"
           />
         </div>
       </form>
