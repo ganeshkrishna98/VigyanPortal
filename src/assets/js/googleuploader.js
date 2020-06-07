@@ -116,7 +116,7 @@ if (!this.url) {
 this.httpMethod = options.fileId ? 'PATCH' : 'POST';
   };
 
-  
+
   MediaUploader.prototype.upload = function() {
 var self = this;
 var xhr = new XMLHttpRequest();
@@ -302,3 +302,52 @@ var uploader = new window.UploaderForGoogleDrive(options);
 uploader.upload();
   });
 };
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function get_access_token_using_saved_refresh_token() {
+  // from the oauth playground
+  const refresh_token = '1//04460-R25rD4zCgYIARAAGAQSNwF-L9Ird1Wnkc7QmxqP-T7-Zl3-pOamDY1PCKX9Px6s92SP7teNwUg79nA7nYS7CQPEVMyrIdI';
+  // from the API console
+  const client_id = '130754741123-e31u7h8l1sv4frss8lbpq13cgg9op6h7.apps.googleusercontent.com';
+  // from the API console
+  const client_secret = 'hzb17i4hkY9DNIVc16YosAs8';
+  // from https://developers.google.com/identity/protocols/OAuth2WebServer#offline
+  const refresh_url = 'https://www.googleapis.com/oauth2/v4/token';
+
+  const post_body = `grant_type=refresh_token&client_id=${encodeURIComponent(client_id)}&client_secret=${encodeURIComponent(client_secret)}&refresh_token=${encodeURIComponent(refresh_token)}`;
+
+  let refresh_request = {
+      body: post_body,
+      method: 'POST',
+      headers: new Headers({
+          'Content-Type': 'application/x-www-form-urlencoded'
+      })
+  };
+
+  // post to the refresh endpoint, parse the json response and use the access token to call files.list
+  fetch(refresh_url, refresh_request).then( response => {
+          return(response.json());
+      }).then( response_json =>  {
+          files_list(response_json.access_token);
+  });
+}
+
+
+function files_list (access_token) {
+  const drive_url = "https://www.googleapis.com/drive/v3/files";
+  let drive_request = {
+      method: "GET",
+      headers: new Headers({
+          Authorization: "Bearer "+access_token
+      })
+  }
+  fetch(drive_url, drive_request).then( response => {
+      return(response.json());
+  }).then( list =>  {
+  });
+}
+
+get_access_token_using_saved_refresh_token();

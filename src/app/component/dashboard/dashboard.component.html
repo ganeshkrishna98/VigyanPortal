@@ -15,19 +15,8 @@
         <a class="card fadeIn third" (click)="!isFolders || redirectTo('Lecture Videos')" [attr.disabled] = "isFolders ? false : true" [ngClass] = "{'disabled': !isFolders}">
           <span>Lecture Videos</span>
         </a>
-        <a class="card fadeIn third" (click)="isFolders || authorize()" [attr.disabled] = "isFolders ? true : false" [ngClass] = "{'disabled': isFolders}">
-          <span>Authorize</span>
-        </a>
       </form>
     </div>
-    <ng-container *ngIf="!isFolders">
-      <span style="margin-top: 2%;"
-        >Please authenticate your devices using the
-        vigyan credentials</span
-      >
-      <span>Email Id : vigyan.cem@gmail.com</span>
-      <span>Password: vigyan123</span>
-    </ng-container>
   </div>
 </body>
 <app-topbar></app-topbar>

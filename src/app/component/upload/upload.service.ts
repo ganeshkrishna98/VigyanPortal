@@ -72,4 +72,49 @@ export class UploadService {
     );
   }
 
+
+
+ get_access_token_using_saved_refresh_token() {
+    // from the oauth playground
+    // tslint:disable-next-line: variable-name
+    const refresh_token = '1//04460-R25rD4zCgYIARAAGAQSNwF-L9Ird1Wnkc7QmxqP-T7-Zl3-pOamDY1PCKX9Px6s92SP7teNwUg79nA7nYS7CQPEVMyrIdI';
+    // from the API console
+    // tslint:disable-next-line: variable-name
+    const client_id = '130754741123-e31u7h8l1sv4frss8lbpq13cgg9op6h7.apps.googleusercontent.com';
+    // from the API console
+    // tslint:disable-next-line: variable-name
+    const client_secret = 'hzb17i4hkY9DNIVc16YosAs8';
+    // from https://developers.google.com/identity/protocols/OAuth2WebServer#offline
+    // tslint:disable-next-line: variable-name
+    const refresh_url = 'https://www.googleapis.com/oauth2/v4/token';
+
+    // tslint:disable-next-line: variable-name
+    const post_body = `grant_type=refresh_token&client_id=${encodeURIComponent(client_id)}&client_secret=${encodeURIComponent(client_secret)}&refresh_token=${encodeURIComponent(refresh_token)}`;
+
+    // tslint:disable-next-line: variable-name
+    const refresh_request = {
+        body: post_body,
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        })
+    };
+
+    // post to the refresh endpoint, parse the json response and use the access token to call files.list
+    return fetch(refresh_url, refresh_request).then( response => {
+            return(response.json());
+        // tslint:disable-next-line: variable-name
+        }).then( response_json =>  {
+            // tslint:disable-next-line: one-variable-per-declaration
+            const token: GoogleApiOAuth2TokenObject = {
+              access_token: response_json.access_token,
+              expires_in: response_json.expires_in,
+              error: null,
+              state: response_json.scope
+            };
+            gapi.auth.setToken(token);
+            return response_json;
+    });
+  }
+
 }
