@@ -120,6 +120,8 @@ export class NoteupComponent implements OnInit {
         ? true
         : this.selectedSemester === 'S3 and S4 common'
         ? true
+        : this.selectedSemester === 'S8 common'
+        ? true
         : false;
     if (this.selectedBranch !== '' || this.selectedSubject !== '') {
       this.dropdownLists.branches = [];
